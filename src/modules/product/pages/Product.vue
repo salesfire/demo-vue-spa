@@ -32,9 +32,9 @@
         <div class="product">
           <div class="product__header">
             <div class="product__expiration">
-              <div class="count-down__timer" id="count-dowm__timer">
+              <!-- <div class="count-down__timer" id="count-dowm__timer">
                 {{ diff }}
-              </div>
+              </div> -->
             </div>
             <div class="product__row">
               <div class="prodcut__gallery">
@@ -50,7 +50,7 @@
                       <div class="gallery__slide">
                         <img
                           class="gallery__img"
-                          :src="slide.img"
+                          :src="getImage()"
                           alt=""
                           v-for="(slide, index) in gallerySlides"
                           :key="index"
@@ -245,6 +245,11 @@ export default {
         { img: require('@/assets/img/slider/3.jpg') },
         { img: require('@/assets/img/slider/3.jpg') }
       ],
+      imgs: [
+        "https://www.ticwatches.co.uk/images/d1-milano-d1-utll02-ultra-thin-rose-gold-white-leather-strap-ladies-watch-p35723-51120_thumbmini.jpg",
+        "https://cdn.shopify.com/s/files/1/0068/7839/6471/products/Silver-Envy-Ring-Product-Shot-grey_1280x1280.jpg?v=1626492134",
+        "https://cdn.shopify.com/s/files/1/0068/7839/6471/products/MINIMALHALLMARK3_1280x1280.jpg?v=1646817539"
+      ],
       ratings: [
         { width: 100, title: 'awesome' },
         { width: 80, title: 'good' },
@@ -278,6 +283,9 @@ export default {
       product: {}
     }
   },
+  beforeDestroy() {
+    console.log('before dstroy')
+  },
 
   computed: {
     ...mapState('cart', ['items']),
@@ -285,6 +293,14 @@ export default {
   },
 
   methods: {
+    getImage() {
+      switch(this.$route.path) {
+        case "/product/1":
+          return this.imgs[0];
+        case "/product/2":
+          return this.imgs[1];
+      }
+    },
     move(n) {
       if (this.gallerySlides.length <= this.slideIndex + n) {
         this.slideIndex = 0
@@ -323,6 +339,7 @@ export default {
   },
 
   async created() {
+    console.log('troll')  
     this.countDownInterval = setInterval(() => {
       let diffTime = this.dateCountDown.diff(moment())
       let durationTime = moment.duration(diffTime)

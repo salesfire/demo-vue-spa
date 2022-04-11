@@ -176,6 +176,9 @@
                 </div>
               </div>
             </div>
+            <div>
+              <input id="search" type="text" style="height: 50px; width: 100px;">
+            </div>
             <div
               class="header__menu"
               :class="{ 'header__menu--is-active': showSideBar }"

@@ -51,7 +51,7 @@
       <SwiperSlider v-if="products.length">
         <template #title> Mobile</template>
         <router-link
-          :to="{ name: 'Product', params: { id: 1 } }"
+          :to="{ name: 'Product', params: { id: item.id } }"
           class="swiper-slide"
           v-for="item in products"
           :key="item.id"
